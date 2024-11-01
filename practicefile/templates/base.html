@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Base Page{% endblock title %}</title>     
+    <script src="{% static 'js/tailwind.js' %}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.12/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="{% static 'image/favicon.svg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="bg-grey">
+
+    {% include "include/navbar.html" %}
+    {% block content %}
+
+
+    {% endblock content %}
+    {% include "include/footer.html" %}
+
+  <script src="{% static 'js/main.js' %}"></script>  
+</body>
+</html>    

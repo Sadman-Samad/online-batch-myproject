@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    {% for q in query %}
+    <p>{{q.name}}</p>
+    <p>{{q.descriptions}}</p>
+
+        <p>Sub category</p>
+        {% for p in q.category.all  %}
+            <p>{{p.name}}</p>
+            <p>{{p.category}}</p>
+            <p>{{p.date}}</p>
+        {% endfor %}
+        
+        
+    {% endfor %}
+        
+</body>
+</html>
