@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 def index(request):
     banner = Banner.objects.all()
@@ -72,20 +73,8 @@ def signup(request):
             return redirect('home')
     else:
         form = UserCreationForm()    
-
     return render(request, 'user/register.html',{'form':form})
 
-def login_view(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username,password=password)
-        
-        if user is not None: 
-            login(request,user)
-            return redirect('home')
-   
-    return render(request, 'user/login.html')        
 
 def passwordchange(request):
     if request.method == "POST":
@@ -140,3 +129,30 @@ def category(request):
 
     return render(request,'category.html',{'query':query})
 
+# def login_view(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(username=username,password=password)
+#         if user is not None: 
+#             login(request,user)
+#             return redirect('home')
+#     return render(request, 'user/login.html')        
+
+
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
+class LoginViewClassBase(LoginView):
+    template_name = "user/login.html"
+    redirect_authenticated_user = True
+
+    success_url = reverse_lazy('home')
+
+    # def get_success_url(self):
+    #     return self.request.GET.get('next', 'home')
+
+def logout_views(request):
+    logout(request)
+
+    messages.success(request, 'You are successfully logout')
+    return redirect('home') 

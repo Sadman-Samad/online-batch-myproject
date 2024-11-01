@@ -39,7 +39,13 @@
             <summary>User Informations</summary>
             <ul class="p-2">
               <li><a href="{% url 'signup' %}">Register</a></li>
-              <li><a href="{% url 'login' %}">Login</a></li>
+              
+              {% if request.user.is_authenticated %}
+              <li><a href="{% url 'log_out' %}">Log out</a></li>
+              {% else %}
+              <li><a href="{% url 'login_class' %}">Log in</a></li>
+              {% endif %}
+                
             </ul>
           </details>
         </li>
